@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+
+    <title>Smart Voice Recorder</title>
+
+    <link rel="stylesheet" href="style.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <main class="app-container">
+
+        <!-- Header -->
+  <header class="header">
+
+    <!-- Voice Recorder Branding -->
+    <div class="brand">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+                <rect x="8" y="2" width="8" height="13" rx="4"
+                      stroke="currentColor" stroke-width="2"/>
+                <path d="M5 11V13a7 7 0 0 0 14 0v-2"
+                      stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round"/>
+                <path d="M12 20v2M9 22h6"
+                      stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div>
+            <h1>Smart Voice</h1>
+            <span>VOICE TO TEXT </span>
+        </div>
+    </div>
+
+    <!-- Recording Status -->
+    <div class="header-status">
+        <span class="status-dot"></span>
+        <span id="systemStatus">Ready to record</span>
+    </div>
+
+    <!-- Academy Branding -->
+    <!-- <div class="header-academy">
+
+        <div class="academy-info">
+            <h2>NextGen Academy</h2>
+            <span>LEARN • BUILD • INNOVATE</span>
+            <p>Eng : Muhammad Sayed</p>
+        </div>
+
+        <div class="academy-logo">
+            <img src="assets/images/nextgen-logo.png"
+                 alt="NextGen Academy Logo">
+        </div>
+
+    </div> -->
+
+</header>
+        <!-- Main Card -->
+        <section class="recorder-card">
+
+       
+
+            <!-- Recording Area -->
+            <div class="recording-area">
+
+                <div class="recording-animation" id="recordingAnimation">
+
+                    <div class="pulse pulse-one"></div>
+                    <div class="pulse pulse-two"></div>
+
+                    <button id="startBtn" class="microphone-button"
+                            aria-label="Start recording">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <rect x="8" y="2" width="8" height="13"
+                                  rx="4" stroke="currentColor"
+                                  stroke-width="2"/>
+                            <path d="M5 11V13a7 7 0 0 0 14 0v-2"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"/>
+                            <path d="M12 20v2M9 22h6"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"/>
+                        </svg>
+                    </button>
+
+                </div>
+
+                <h3 id="recordingTitle">Ready to Listen</h3>
+
+                <p id="recordingDescription">
+                    Press the microphone button to start recording.
+                </p>
+
+                <!-- Audio Wave -->
+                <div class="wave-container" id="waveContainer">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+
+                <!-- Timer -->
+                <div class="timer" id="timer">00:00:00</div>
+
+                <div class="recording-label" id="recordingLabel">
+                    <span></span>
+                    <span id="recordingLabelText">NOT RECORDING</span>
+                </div>
+
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+
+                <button id="pauseBtn" class="control-btn pause-btn" disabled>
+                    <span>Ⅱ</span>
+                    Pause
+                </button>
+
+                <button id="resumeBtn" class="control-btn resume-btn" disabled>
+                    <span>▶</span>
+                    Resume
+                </button>
+
+                <button id="finishBtn" class="control-btn finish-btn" disabled>
+                    <span>■</span>
+                    Finish
+                </button>
+
+            </div>
+
+            <!-- Transcript Section -->
+            <div class="transcript-section">
+
+                <div class="transcript-header">
+
+                    <div>
+                        <h3>Live Transcription</h3>
+                        <p>Your recognized speech will appear here.</p>
+                    </div>
+
+                    <div class="live-indicator" id="liveIndicator">
+                        <span></span>
+                        LIVE
+                    </div>
+
+                </div>
+
+                <textarea
+                    id="transcript"
+                    placeholder="Your speech will appear here..."
+                    spellcheck="false"
+                    dir="auto"
+                ></textarea>
+
+                <div class="transcript-footer">
+
+                    <div class="statistics">
+                        <span>
+                            <strong id="wordCount">0</strong>
+                            Words
+                        </span>
+
+                        <span>
+                            <strong id="characterCount">0</strong>
+                            Characters
+                        </span>
+                    </div>
+
+                    <button id="clearBtn" class="clear-btn">
+                        <span>✕</span>
+                        Clear Text
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Export -->
+            <div class="export-section">
+
+                <div class="export-info">
+                    <div class="pdf-icon">PDF</div>
+
+                    <div>
+                        <h3>Export Your Transcript</h3>
+                        <p>Save your speech as a PDF document.</p>
+                    </div>
+                </div>
+
+                <button id="exportBtn" class="export-btn" disabled>
+                    <span>↓</span>
+                    Download PDF
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+<footer class="main-footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <i class="fas fa-microphone-alt"></i>
+            </div>
+
+            <h3>Smart Voice Recorder</h3>
+
+            <p>
+                Convert your voice into text quickly
+                
+            </p>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-developer">
+
+            <span class="developer-label">Designed & Developed By</span>
+
+            <h2>Eng : Muhammad Sayed</h2>
+
+            <span class="developer-role">
+                Software Engineer & Full-Stack Developer
+            </span>
+
+        </div>
+
+        <div class="footer-social">
+
+            <h4>Connect With Me</h4>
+
+            <div class="social-links">
+
+                <a href="https://wa.me/201104534626"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="social-link whatsapp"
+                   aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                <a href="https://t.me/muh_syd"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="social-link telegram"
+                   aria-label="Telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+
+                <a href="https://www.facebook.com/profile.php?id=61574770233213"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="social-link facebook"
+                   aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            All Rights Reserved ©
+            <span id="footerYear"></span>
+            <span class="developer-label">Eng : Muhammad Sayed</span>
+            
+        </p>
+
+        <p class="footer-made">
+           
+                   <a href="https://www.facebook.com/profile.php?id=61587053313605&mibextid=ZbWKwL"
+                   target="_blank"
+                   class="developer-label"
+                   style="text-decoration: none;"
+                  >
+                   NextGen Academy  
+                </a>
+                     
+
+        </p>
+
+    </div>
+
+</footer>
+
+<script>
+    document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+</script>
+
+    </main>
+
+    <!-- PDF Name Modal -->
+    <div class="modal-overlay" id="pdfModal">
+
+        <div class="modal">
+
+            <div class="modal-icon">PDF</div>
+
+            <h2>Save Your Transcript</h2>
+
+            <p>
+                Enter a name for your PDF document.
+            </p>
+
+            <label for="fileName">Document Name</label>
+
+            <input
+                type="text"
+                id="fileName"
+                placeholder="My Voice Transcript"
+                maxlength="80"
+            >
+
+            <div class="modal-actions">
+
+                <button id="cancelModalBtn" class="cancel-modal-btn">
+                    Cancel
+                </button>
+
+                <button id="confirmExportBtn" class="confirm-export-btn">
+                    Download PDF
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
